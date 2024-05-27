@@ -1,5 +1,16 @@
 # Definition for singly-linked list.
 
+def unpack(
+    l1):
+
+    res = str(l1.val)
+
+    while l1.next:
+        l1 = l1.next
+        res += str(l1.val)
+    
+    return res
+
 
 def addTwoNumbers(
     l1, l2):
@@ -8,22 +19,36 @@ def addTwoNumbers(
     result = ListNode()
     cursor = result
 
-    # считаем первую ноду
-    cursor.val = (l1.val + l2.val)
-
+    counter = 0
 
     while l1 or l2 or perenos:
-        val1 = l1.val
-        val2 = l2.val
+        print(f'counter = {counter}')        
+        
+        val1 = l1.val if l1 else 0
+        val2 = l2.val if l2 else 0
+        print(
+            f'\nl1 = {l1} / val1 = {val1}\n'
+            f'l2 = {l2} / val2 = {val2}\n'
+            f'perenos = {perenos}\n'
+            f'cursor.val = {cursor.val} / cursor.next = {cursor.next}\n'
+        )
 
-        digit = (val1 + val2) % 10
-        perenos = (val1 + val2) // 10
+        summ = val1 + val2 + perenos
+        digit = summ % 10
+        perenos = summ // 10
 
-        cursor.val = digit
-
+        cursor.next = ListNode(digit)
         cursor = cursor.next
 
-    return result
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+
+        
+        counter += 1
+
+    return result.next
+
+
 
 
 if __name__ == '__main__':
@@ -40,7 +65,9 @@ if __name__ == '__main__':
     l2.next = ListNode(6)
     l2.next.next = ListNode(4)
 
-    print(addTwoNumbers(l1,l2))
+    result = addTwoNumbers(l1,l2)
+
+    print(unpack(result))
 
 
 
@@ -49,17 +76,8 @@ if __name__ == '__main__':
 
 
 
-# def addTwoNumbers(
-#     l1):
 
-#     res = str(l1.val)
 
-#     while l1.next:
-#         l1 = l1.next
-#         res += str(l1.val)
-    
-#     return res
-
-print(addTwoNumbers(l1))
-print(addTwoNumbers(l2))
+# print(addTwoNumbers(l1))
+# print(addTwoNumbers(l2))
 
